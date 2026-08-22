@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The only directory the update provider will hand out.
+
+  Scoped to the app's own cache rather than external storage: the downloaded
+  APK is never readable by other apps, and it disappears when Android reclaims
+  cache space instead of accumulating in the user's Downloads folder.
+-->
+<paths>
+    <cache-path name="updates" path="updates/" />
+</paths>

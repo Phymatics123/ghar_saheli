@@ -1,0 +1,16 @@
+{
+  "_comment": "Copy this to latest.json, fill it in, and upload it to the URL set as kUpdateManifestUrl in lib/src/services/update_service.dart. Delete these two underscore keys first — they are ignored, but the file is easier to read without them.",
+  "_howToGetTheChecksum": "PowerShell:  (Get-FileHash .\\app-release.apk -Algorithm SHA256).Hash.ToLower()",
+
+  "versionCode": 2,
+  "versionName": "1.0.1",
+  "apkUrl": "https://your-host.example/ghar-saheli/ghar-saheli-1.0.1.apk",
+  "sha256": "replace_with_the_real_64_character_lowercase_sha256_of_the_apk",
+  "sizeBytes": 8388608,
+  "mandatory": false,
+  "notes": {
+    "ur": "چھوٹی خرابیاں ٹھیک کی گئیں",
+    "roman": "Choti kharabiyan theek ki gayin",
+    "en": "Small fixes"
+  }
+}

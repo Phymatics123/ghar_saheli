@@ -1,0 +1,43 @@
+name: ghar_saheli
+description: "Ghar Saheli — household ledger for Pakistani homes. Offline-first, no accounts, no cloud."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Local database. drift = type-safe SQL over SQLite with reactive queries.
+  drift: ^2.20.0
+  # Ships a modern SQLite binary with the APK instead of trusting the one
+  # baked into old Android builds — budget phones often carry ancient versions.
+  sqlite3_flutter_libs: ^0.5.24
+  path_provider: ^2.1.4
+  path: ^1.9.0
+  # SHA-256 for the PIN. Dart has no hashing in core, and a stored PIN must
+  # never be plaintext. Official Dart team package, a few tens of kilobytes.
+  crypto: ^3.0.5
+  # Salary receipts. `pdf` builds the document in pure Dart; `share_plus`
+  # hands the finished file to WhatsApp through Android's own share sheet,
+  # so the app never needs contacts, network, or a WhatsApp integration.
+  pdf: ^3.11.0
+  share_plus: ^10.0.0
+  # Encrypted backups. AES-GCM is authenticated, so a corrupted or tampered
+  # backup fails loudly instead of restoring silent nonsense into a ledger.
+  encrypt: ^5.0.3
+  # Choosing a backup file to restore from. Android has no way to hand a file
+  # to an app without going through the system picker.
+  file_picker: ^8.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  drift_dev: ^2.20.0
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true

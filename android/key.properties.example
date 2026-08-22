@@ -1,0 +1,13 @@
+# Copy this file to `android/key.properties` and fill in your own values.
+#
+# The real `key.properties` is gitignored, and so are *.jks and *.keystore.
+# Never commit either of them, and never send the keystore over WhatsApp or
+# email "just to have a copy somewhere".
+#
+# storeFile is resolved relative to the `android/app/` directory, so a keystore
+# kept at android/app/ghar-saheli.jks is written simply as the filename.
+
+storePassword=CHANGE_ME
+keyPassword=CHANGE_ME
+keyAlias=ghar-saheli
+storeFile=ghar-saheli.jks
