@@ -166,7 +166,7 @@ reminder that silently never fires is worse than no reminder at all. A card on
 a screen the user already opens cannot be dropped by anyone.
 
 It also keeps three permissions, a native dependency, a manifest full of alarm
-and boot receivers, and roughly a megabyte out of an eight-megabyte budget.
+and boot receivers, and roughly a megabyte of download.
 If OS notifications are added later, they belong *on top of* this due-detection
 logic as a best-effort nudge, never as the only path.
 
@@ -188,7 +188,7 @@ on most Android builds is Naskh rather than the Nastaliq an Urdu reader expects.
 It is legible everywhere and costs nothing, which is why it is the default. To
 upgrade, drop `NotoNastaliqUrdu-Regular.ttf` into `assets/fonts/`, declare it in
 `pubspec.yaml`, and set `AppTheme.urduFontFamily`. It looks considerably better
-and costs roughly a megabyte against an eight-megabyte budget — a call worth
+and costs roughly a megabyte on an 18 MB download — a call worth
 making with real users in front of it.
 
 ## What is here
@@ -289,5 +289,5 @@ leaves balances untouched.
   phones in one household independently create the *same* id for Groceries and
   merge cleanly instead of producing duplicate categories.
 - `sqlite3_flutter_libs` bundles a modern SQLite rather than trusting the one
-  in old Android builds. It costs roughly 1–2 MB per ABI, which is the main
-  reason to ship arm64-only APKs against the <8 MB target.
+  in old Android builds. It costs roughly 1.7 MB, and is the only dependency
+  in the APK large enough to be worth naming — see RELEASE.md on size.

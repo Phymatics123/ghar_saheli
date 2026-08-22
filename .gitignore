@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Built APKs staged for upload to GitHub Releases — never commit an 18 MB
+# binary into git history; it belongs on the Release, not in the repo.
+release/*.apk

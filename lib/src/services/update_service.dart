@@ -14,11 +14,11 @@ import '../domain/app_update.dart';
 /// folder on a web server. There is no backend to write, and publishing an
 /// update is editing one small file.
 ///
-/// **Replace this before shipping.** Left pointing nowhere on purpose, so a
-/// forgotten placeholder fails loudly at the first check rather than silently
-/// never finding an update.
+/// Points at the v1.0.0 GitHub Release. Every future release re-uploads
+/// `latest.json` to this same v1.0.0 release (see RELEASE.md) rather than
+/// changing this URL, so this constant is set once and never touched again.
 const String kUpdateManifestUrl =
-    'https://example.invalid/ghar-saheli/latest.json';
+    'https://github.com/Phymatics123/ghar_saheli/releases/download/v1.0.0/latest.json';
 
 /// The page a new user is sent to when someone shares the app with them.
 ///
@@ -28,8 +28,8 @@ const String kUpdateManifestUrl =
 /// "unknown apps" step before they hit it. Word of mouth through family is
 /// realistically how this spreads, so that first impression is the funnel.
 ///
-/// **Replace this before sharing anything.**
-const String kAppDownloadPageUrl = 'https://example.invalid/ghar-saheli';
+const String kAppDownloadPageUrl =
+    'https://github.com/Phymatics123/ghar_saheli/releases/tag/v1.0.0';
 
 /// Checks for, downloads and installs a new build of the app.
 ///

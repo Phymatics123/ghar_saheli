@@ -1,0 +1,13 @@
+{
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "apkUrl": "https://github.com/Phymatics123/ghar_saheli/releases/download/v1.0.0/ghar-saheli-1.0.0.apk",
+  "sha256": "612104dec3ed4cc794df33a738d5b93ec2961a57ba82dce7a2642cca22c3bc6b",
+  "sizeBytes": 18563563,
+  "mandatory": false,
+  "notes": {
+    "ur": "پہلا ورژن",
+    "roman": "Pehla version",
+    "en": "First release"
+  }
+}

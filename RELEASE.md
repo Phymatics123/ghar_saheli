@@ -42,8 +42,20 @@ In `lib/src/services/update_service.dart`:
 - `kUpdateManifestUrl` — where `latest.json` will live
 - `kAppDownloadPageUrl` — the page new users are sent to
 
-Both point at `example.invalid` on purpose, so a forgotten placeholder fails
-loudly instead of quietly never finding an update.
+These are already set to the GitHub Releases repository
+(`github.com/Phymatics123/ghar_saheli`), pinned to a single release tagged
+**v1.0.0**.
+
+**That tag is permanent, on purpose, and is not "the first version."** These
+two URLs are compiled into every install and can never be changed after the
+app has shipped — an already-installed copy has no way to be told a URL
+changed. GitHub lets a release's attached files be replaced without touching
+its tag, so `v1.0.0` is the fixed address `latest.json` and the current APK
+always live at, however many real versions have shipped since. **Every**
+release — v1.0.1, v2.0.0, whatever — uploads its `latest.json` and APK to
+this same `v1.0.0` release, overwriting what was there. The version number
+that actually matters to users lives in `pubspec.yaml` and inside
+`latest.json`, not in the release tag.
 
 Hosting can be anything that serves static files over HTTPS — GitHub Releases,
 Firebase Hosting, a folder on a web server. There is no backend.
@@ -95,9 +107,31 @@ in performance on 64-bit hardware.
 ls -lh build/app/outputs/flutter-apk/
 ```
 
-The target is under 8 MB. If it is over, the levers in rough order of payoff:
-drop `--split-per-abi` output to one ABI, remove an unused dependency, and
-check that `isMinifyEnabled` is still on in `android/app/build.gradle.kts`.
+Expect roughly **18 MB** for the `armeabi-v7a` build. An earlier draft of this
+file claimed a target under 8 MB; that was never achievable and has been
+corrected.
+
+Practically the whole APK is native code, and almost none of it is ours:
+
+| | |
+|---|---|
+| `libflutter.so` | 8.1 MB — the Flutter engine. Fixed cost, identical in a hello-world app. |
+| `libapp.so` | 7.6 MB — all our Dart, plus every package compiled in. |
+| `libsqlite3.so` | 1.7 MB — the bundled modern SQLite. |
+| everything else | under 1 MB — assets, Kotlin, resources, manifest. |
+
+Native libraries are stored *uncompressed* in a modern APK, so these add up
+almost exactly to the file size. The floor for any Flutter app on this ABI is
+therefore ~10 MB before a line of app code exists, which is what made the old
+target impossible.
+
+If it ever needs to come down, the honest levers in order of payoff: drop the
+`pdf` dependency (the largest single contributor to `libapp.so`, at the cost of
+salary receipts), drop `sqlite3_flutter_libs` and trust the OS SQLite (saves
+1.7 MB, at the cost of old-Android reliability), and confirm `isMinifyEnabled`
+is still on in `android/app/build.gradle.kts`. None of these are worth doing
+on current numbers — 18 MB is unremarkable next to WhatsApp's ~70 MB, and
+users download it once.
 
 ### 4. Get the checksum
 
@@ -106,6 +140,12 @@ check that `isMinifyEnabled` is still on in `android/app/build.gradle.kts`.
 ```
 
 ### 5. Publish
+
+Every release, first and every one after it, is uploaded to the **same**
+GitHub Release — the one tagged `v1.0.0` — because `kUpdateManifestUrl` is
+compiled into already-installed copies and can never point anywhere else. Open
+that release on GitHub and edit it (not "create new release"); a same-named
+uploaded file replaces the old one.
 
 Upload the APK, then upload a `latest.json` built from
 `release/latest.json.example` with the new version code, name, URL, checksum
