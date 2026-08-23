@@ -38,6 +38,32 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   drift_dev: ^2.20.0
   build_runner: ^2.4.13
+  # Generates every launcher icon size Android needs from one source image.
+  # Build-time only — nothing from this package ships inside the APK.
+  flutter_launcher_icons: ^0.14.1
+
+# Run after changing assets/icon/*:
+#   dart run flutter_launcher_icons
+#
+# Two source images, because Android has two icon systems. The square one is
+# the legacy icon, used as-is on Android 7 and older. The adaptive pair is for
+# Android 8+, where the launcher masks the icon into whatever shape the phone's
+# theme uses — circle, squircle, rounded square — and animates it. Only the
+# centre of an adaptive foreground is guaranteed visible, so the book in
+# icon_foreground.png is scaled smaller than in icon.png to survive a circular
+# crop with room to spare.
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#FDF7EB"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  # Android 13+ themed icons: the launcher tints this layer to match the
+  # user's wallpaper, reading shape from its alpha channel only. Derived from
+  # the artwork's luminance so the book's ink stays solid and the cream page
+  # drops out — a flat silhouette would just be a featureless blob.
+  adaptive_icon_monochrome: "assets/icon/icon_monochrome.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true

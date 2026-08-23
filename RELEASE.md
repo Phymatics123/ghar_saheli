@@ -77,9 +77,10 @@ version: 1.0.1+2
 ```
 
 The part before `+` is the version name people see. The number after `+` is the
-version code, and **it must increase every single release** — it is the only
+build number, and **it must increase every single release** — it is the only
 thing the updater compares, and Android refuses to install a build whose code
-is not higher than the installed one.
+is not higher than the installed one. Note it is not what finally lands in the
+APK: see step 4 on the per-ABI offset.
 
 ### 2. Build
 
@@ -133,11 +134,34 @@ is still on in `android/app/build.gradle.kts`. None of these are worth doing
 on current numbers — 18 MB is unremarkable next to WhatsApp's ~70 MB, and
 users download it once.
 
-### 4. Get the checksum
+### 4. Build `latest.json`
 
 ```
-(Get-FileHash .\build\app\outputs\flutter-apk\app-release.apk -Algorithm SHA256).Hash.ToLower()
+cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk release/ghar-saheli-<version>.apk
+tool/make_latest_json.sh release/ghar-saheli-<version>.apk \
+  https://github.com/Phymatics123/ghar_saheli/releases/download/v1.0.0/ghar-saheli-<version>.apk \
+  "Kya naya hai"
 ```
+
+**Use the script rather than writing the file by hand.** There is one trap here
+that fails completely silently.
+
+`--split-per-abi` does *not* use the build number from `pubspec.yaml` as the
+versionCode. It adds a per-ABI offset:
+
+| ABI | versionCode for pubspec `+N` |
+|---|---|
+| `armeabi-v7a` | 1000 + N |
+| `arm64-v8a` | 2000 + N |
+| `x86_64` | 4000 + N |
+
+So `version: 1.0.0+1` ships as versionCode **1001**, and that is the number an
+installed copy reports back through `PackageManager`. Write the pubspec number
+into `latest.json` by hand and the updater compares `2` against `1001`,
+concludes the phone is already on something newer, and offers nothing at all —
+no error, no crash, updates simply never appear. The script reads the real
+number back out of the built APK, along with the checksum and size, so none of
+the three can drift from the file they describe.
 
 ### 5. Publish
 
@@ -147,13 +171,15 @@ compiled into already-installed copies and can never point anywhere else. Open
 that release on GitHub and edit it (not "create new release"); a same-named
 uploaded file replaces the old one.
 
-Upload the APK, then upload a `latest.json` built from
-`release/latest.json.example` with the new version code, name, URL, checksum
-and size filled in.
+```
+gh release upload v1.0.0 release/ghar-saheli-<version>.apk --repo Phymatics123/ghar_saheli
+gh release upload v1.0.0 release/latest.json --clobber --repo Phymatics123/ghar_saheli
+```
 
 Order matters: **upload the APK first.** If the manifest goes up first, every
 phone that checks in the meantime tries to download a file that is not there
-yet.
+yet. `--clobber` is needed on `latest.json` because it keeps the same filename
+every release; the APK is versioned in its name and so is always a new file.
 
 ---
 
