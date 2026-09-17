@@ -11,7 +11,7 @@ const Map<String, IconData> kCategoryIcons = <String, IconData>{
   // Where money sits
   'wallet': Icons.account_balance_wallet,
   'bank': Icons.account_balance,
-  'savings': Icons.savings,
+  'savings': Icons.paid,
 
   // Coming in
   'salary': Icons.payments,
