@@ -1,13 +1,13 @@
 {
-  "versionCode": 1001,
-  "versionName": "1.0.0",
+  "versionCode": 1002,
+  "versionName": "1.0.1",
   "apkUrl": "https://github.com/Phymatics123/ghar_saheli/releases/download/v1.0.0/ghar-saheli-1.0.0.apk",
-  "sha256": "ecec42c99d0cb60226f1993b0a2fac74f97236af2c06c0b60e792b0e822c3cca",
-  "sizeBytes": 18864943,
+  "sha256": "a6dacdbe4cd74b1828b9137a07b0de36b169bda83a97ed713b1d3abd38e79382",
+  "sizeBytes": 18864947,
   "mandatory": false,
   "notes": {
     "ur": "نیا ورژن",
-    "roman": "Bachat (Savings) icon ko halal coin symbol se tabdeel kiya gaya",
-    "en": "Bachat (Savings) icon ko halal coin symbol se tabdeel kiya gaya"
+    "roman": "App ka naam Ghar Hisaab rakh diya gaya aur bachat icon update kiya gaya",
+    "en": "App ka naam Ghar Hisaab rakh diya gaya aur bachat icon update kiya gaya"
   }
 }

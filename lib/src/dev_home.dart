@@ -21,7 +21,7 @@ class DevHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ghar Saheli — engine check'),
+        title: const Text('Ghar Hisaab — engine check'),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(28),
           child: Padding(

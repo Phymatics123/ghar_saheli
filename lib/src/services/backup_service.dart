@@ -202,11 +202,11 @@ class BackupService {
     final int minimumLength = headerLength + _saltLength + _nonceLength;
 
     if (bytes.length < minimumLength) {
-      throw const BackupError('This file is not a Ghar Saheli backup.');
+      throw const BackupError('This file is not a Ghar Hisaab backup.');
     }
     for (int i = 0; i < magic.length; i++) {
       if (bytes[i] != magic[i]) {
-        throw const BackupError('This file is not a Ghar Saheli backup.');
+        throw const BackupError('This file is not a Ghar Hisaab backup.');
       }
     }
     if (bytes[magic.length] != _formatVersion) {

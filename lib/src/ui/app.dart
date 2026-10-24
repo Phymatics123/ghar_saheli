@@ -50,7 +50,7 @@ class _AppViewState extends State<_AppView> {
     final AppSettings settings = AppScope.settingsOf(context);
 
     return MaterialApp(
-      title: 'Ghar Saheli',
+      title: 'Ghar Hisaab',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.build(settings.language),
       navigatorKey: _navigatorKey,
@@ -234,7 +234,7 @@ class _Curtain extends StatelessWidget {
       color: AppTheme.primary,
       child: Center(
         child: Text(
-          'Ghar Saheli',
+          'Ghar Hisaab',
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,

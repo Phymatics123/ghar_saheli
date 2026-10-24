@@ -91,7 +91,7 @@ class StatementService {
         footer: (pw.Context context) => pw.Align(
           alignment: pw.Alignment.centerRight,
           child: pw.Text(
-            'Ghar Saheli  ·  ${context.pageNumber} / ${context.pagesCount}',
+            'Ghar Hisaab  ·  ${context.pageNumber} / ${context.pagesCount}',
             style: const pw.TextStyle(fontSize: 8, color: PdfColors.grey600),
           ),
         ),

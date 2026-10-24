@@ -68,7 +68,7 @@ class S {
       };
 
   // ---- App ----
-  String get appName => _pick('گھر سہیلی', 'Ghar Saheli', 'Ghar Saheli');
+  String get appName => _pick('گھر حساب', 'Ghar Hisaab', 'Ghar Hisaab');
 
   // ---- Home ----
   String get moneyInHand => _pick('ہاتھ میں', 'Haath mein', 'In hand');
